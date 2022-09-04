@@ -11,8 +11,9 @@ import Navbar from './components/Navbar/Navbar';
 function App() {
   return (
     <div>
-  
+   <Navbar></Navbar>
      <Routes>
+    
      <Route path="/" element={
           <RequireAuth>
             <Home />
