@@ -13,7 +13,7 @@ function App() {
     <div>
    <Navbar></Navbar>
      <Routes>
-    
+    <Route path='/login' element={<Login/>}  />
      <Route path="/" element={
           <RequireAuth>
             <Home />

@@ -57,8 +57,22 @@ const Login = () => {
         e.preventDefault();
 
         console.log(userInfo)
-
-        signInWithEmail(userInfo.email, userInfo.password);
+let email = userInfo.email;
+let password = userInfo.password;
+        signInWithEmail(email, password);
+        fetch("http://localhost:5000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                const token = data.accessToken;
+                localStorage.setItem('accessToken', token);
+                navigate(from, { replace: true });
+            });
 
     }
 

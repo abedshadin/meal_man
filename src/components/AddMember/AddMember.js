@@ -9,20 +9,18 @@ const AddMember = () => {
   const [user] = useAuthState(auth)
   const onSubmit = data => {
     reset();
-    const addFirm = {
-      firmName: data.firmName,
-      proName: data.proName,
+    const addMember = {
+      name: data.name,
+      dept: data.dept,
       email: data.email,
-      phone: data.phone,
-      address: data.address,
-
-      area: data.area
+      phone: data.phone
     };
-    fetch(`https://new-aghgfhfgh.herokuapp.com/addfirm`, {
+    console.log(addMember)
+    fetch(`https://localhost:5000/addMember`, {
       method: "Post",
-      body: JSON.stringify(addFirm),
+      body: JSON.stringify(addMember),
       headers: {
-        'authorization': `${user.email} ${localStorage.getItem("accessToken")}`,
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         "Content-type": "application/json; charset=UTF-8",
       },
     })
@@ -38,13 +36,13 @@ const AddMember = () => {
           <div className="card-body items-center text-center">
             <h2 className="card-title text-white">Add New Member</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <input {...register("firmName", { required: true, maxLength: 200 })} type="text" placeholder="Name" className="input input-bordered w-full max-w-xs mb-2 text-white" name="firmName" required />
-              <input {...register("proName", { required: false, maxLength: 200 })} type="text" placeholder="Dept." className="input input-bordered w-full max-w-xs mb-2 text-white" name="proName" />
+              <input {...register("name", { required: true, maxLength: 200 })} type="text" placeholder="Name" className="input input-bordered w-full max-w-xs mb-2 text-white" name="name" required />
+              <input {...register("dept", { required: false, maxLength: 200 })} type="text" placeholder="Dept." className="input input-bordered w-full max-w-xs mb-2 text-white" name="dept" />
               <input {...register("email", { required: false, maxLength: 200 })} type="text" placeholder="Email" className="input input-bordered w-full max-w-xs mb-2 text-white" name="email" />
 
               <input {...register("phone", { required: false, maxLength: 200 })} type="text" placeholder="Mobile" className="input input-bordered w-full max-w-xs mb-2 text-white" name="phone" />
-              <input {...register("address", { required: false, maxLength: 200 })} type="text" placeholder="Address" className="input input-bordered w-full max-w-xs mb-2 text-white" name="address"  />
-              <input {...register("area", { required: false, maxLength: 200 })} type="text" placeholder="Area" className="input input-bordered w-full max-w-xs mb-2 text-white" name="area"  />
+
+
 
               <div className="card-actions justify-center">
                 <input type="submit" value="Add" className="btn btn-primary text-white" />
