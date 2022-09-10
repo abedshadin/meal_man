@@ -16,7 +16,7 @@ const AddMember = () => {
       phone: data.phone
     };
     console.log(addMember)
-    fetch(`https://localhost:5000/addMember`, {
+    fetch(`http://localhost:5000/addMember`, {
       method: "Post",
       body: JSON.stringify(addMember),
       headers: {
@@ -26,7 +26,7 @@ const AddMember = () => {
     })
       .then((response) => response.json())
       .then((json) => {
-        toast("Firm Added");
+        toast("Member Added");
       });
   }
   return (

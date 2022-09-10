@@ -41,6 +41,9 @@ const Navbar = () => {
       <li className='mr-1'>    <NavLink to="/" className="btn">Home</NavLink></li>
       <li className='mr-1'>    <NavLink to="/add_member" className="btn">Add Member</NavLink></li>
       <li className='mr-1'>    <NavLink to="/add_meal" className="btn">Add Meal</NavLink></li>
+      <li className='mr-1'>    <NavLink to="/members" className="btn">Members</NavLink></li>
+      <li className='mr-1'>    <NavLink to="/individual" className="btn">Individual</NavLink></li>
+      <li className='mr-1'>    <NavLink to="/all" className="btn">All</NavLink></li>
 
    
     
