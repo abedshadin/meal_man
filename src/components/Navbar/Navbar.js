@@ -48,6 +48,8 @@ const Navbar = () => {
       <li className='mr-1'>    <NavLink to="/kpay" className="btn">Khala Pay</NavLink></li>
       <li className='mr-1'>    <NavLink to="/kreport" className="btn">Khala Repo</NavLink></li>
 
+      <li className='mr-1'>    <NavLink to="/bpay" className="btn">Bazar Pay</NavLink></li>
+      <li className='mr-1'>    <NavLink to="/breport" className="btn">Bazar Repo</NavLink></li>
    
     
     

@@ -3,10 +3,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
-import { auth } from '../firebase.init';
+import { auth } from '../../firebase.init';
 
 
-const KhalaPay = () => {
+
+const BazarPay = () => {
   const [user] = useAuthState(auth);
   const current = new Date();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
@@ -14,7 +15,7 @@ const KhalaPay = () => {
   const month = current.toLocaleString("en-US", { month: "long" });
   const year = current.getFullYear();
 
-  const [rate, setRate] = useState('');
+  const [name, setName] = useState('');
   const [comment, setComment] = useState('');
   const [tId, setTId] = useState(0);
   const [pay, setPay] = useState(0);
@@ -46,10 +47,9 @@ const KhalaPay = () => {
     // console.log("month" + arrayMonth)
     // console.log("year" + arrayYear)
 
-    const khalapay = {
-      name: searchText,
-      pay: parseInt(e.target.pay.value),
-      due: payment,
+    const bazarPay = {
+      name: name,
+      bazar_cost: parseInt(e.target.pay.value),
       comment: comment,
       date: newDate,
       time: e.target.time.value,
@@ -60,10 +60,10 @@ const KhalaPay = () => {
 
     };
 
-    console.log(khalapay)
-    fetch(`http://localhost:5000/khalapay`, {
+    console.log(bazarPay)
+    fetch(`http://localhost:5000/bazar`, {
       method: "Post",
-      body: JSON.stringify(khalapay),
+      body: JSON.stringify(bazarPay),
       headers: {
         'authorization': `${user.email} ${localStorage.getItem("accessToken")}`,
         "Content-type": "application/json; charset=UTF-8",
@@ -109,22 +109,7 @@ const KhalaPay = () => {
 
       <div className="hero  bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
-          <div className="stats stats-vertical shadow">
-
-            <div className="stat">
-              <div className="font-bold text-black text-2xl text-center">Amount</div>
-              <div className="stat-value text-center text-green-500">{m_amount}</div>
-
-            </div>
-
-
-
-            <div className="stat">
-              <div className="font-bold text-2xl text-center">Due</div>
-              <div className="stat-value text-center text-red-500">{payment}</div>
-            </div>
-
-          </div>
+        
 
 
 
@@ -132,28 +117,22 @@ const KhalaPay = () => {
             <div className="flex justify-center items-center justify-items-center">
               <div className="card sm:w-94 lg:w-96 bg-neutral text-neutral-content">
                 <div className="card-body items-center text-center">
-                  <h2 className="card-title text-white">Receipt</h2>
+                  <h2 className="card-title text-white">Bazar</h2>
                   <form onSubmit={handleSubmit}>
-                    <input type="text" name="date" placeholder="" className="input input-bordered w-full max-w-xs mb-2 text-black" defaultValue={date} />
+                    <input type="text" name="date" placeholder="" className="input input-bordered w-full max-w-xs mb-2 text-white" defaultValue={date} />
                     <input type="text" name="time" placeholder="" className="input input-bordered w-full max-w-xs mb-2 text-black" value={time} hidden />
                     <input type="text" name="month" placeholder="" className="input input-bordered w-full max-w-xs mb-2 text-black" defaultValue={month} hidden />
                     <input type="text" name="year" placeholder="" className="input input-bordered w-full max-w-xs mb-2 text-black" defaultValue={year} hidden />
 
 
-                    <Select
-                      placeholder="Select a Firm"
-                      value={options.value} // set selected value
-                      options={options} // set list of the data
-                      onChange={handleChange}
-                      className=" input-bordered w-full max-w-xs mb-2 text-black required"// assign onChange function
-                    />
+                  
 
                 
             
-
+                    <input type="name" name="name" placeholder="Name" className="input input-bordered w-full max-w-xs mb-2 text-white" onChange={e => setName(e.target.value)} />
 
                    
-                    <input type="number" name="pay" placeholder="Payment" className="input input-bordered w-full max-w-xs mb-2 text-black" onChange={e => setPay(e.target.value)} />
+                    <input type="number" name="pay" placeholder="Bazar Cost" className="input input-bordered w-full max-w-xs mb-2 text-white" onChange={e => setPay(e.target.value)} />
 
 
 
@@ -307,4 +286,4 @@ const KhalaPay = () => {
   );
 };
 
-export default KhalaPay;
+export default BazarPay;

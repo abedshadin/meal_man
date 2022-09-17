@@ -3,10 +3,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
-import { auth } from '../firebase.init';
+import { auth } from '../../firebase.init';
 
 
-const KhalaReport = () => {
+
+const BazarReport = () => {
     const [user] = useAuthState(auth);
 
     const current = new Date();
@@ -28,10 +29,27 @@ const KhalaReport = () => {
 
     const [firms, setFirms] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/khalapay')
+        fetch('http://localhost:5000/bazar')
             .then(res => res.json())
             .then(data => setFirms(data));
     }, [])
+
+
+    const [pays, setPays] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/members')
+            .then(res => res.json())
+            .then(data => setPays(data));
+    }, [])
+
+ 
+
+
+
+
+
+
+
     const [searchText, setSearchText] = useState('');
 
     // console.log(searchText)
@@ -116,12 +134,9 @@ const KhalaReport = () => {
     const handleChange = e => {
         setSearchText(e.value);
     }
-    let totalamount_paid = 0;
+    let totalbazarcost = 0;
     let totaldue = 0;
-    let totalamount_week3 = 0;
-    let totalamount_week4 = 0;
-    let totalamount_week5 = 0;
-    let totalamount_weekall = 0;
+    let totalpayment = 0;
     return (
         <div>
 
@@ -143,7 +158,7 @@ const KhalaReport = () => {
                         <tr>
                         {
                         firms.forEach(rec => {
-                            totalamount_paid = parseInt(totalamount_paid +  rec.pay);
+                            totalbazarcost = parseInt(totalbazarcost +  rec.bazar_cost);
 
                         })
 
@@ -156,13 +171,20 @@ const KhalaReport = () => {
 
                     }
                        
-                       
+                       {
+                        pays.forEach(rec => {
+                            totalpayment = parseInt(totalpayment +  rec.week_1+  rec.week_2+  rec.week_3+  rec.week_4+  rec.week_5);
+
+                        })
+
+                    }
+
                       
 
-                            <th colSpan="4">Total</th>
-                            
-                            <th>{totalamount_paid}</th>
-                            <th>{totaldue}</th>
+                            <th colSpan="2">Total</th>
+                            <th>{totalbazarcost-totalpayment}</th>
+                            <th>{totalbazarcost}</th>
+                          
                          
                         
                          
@@ -179,9 +201,8 @@ const KhalaReport = () => {
                             <th>Date</th>
                             <th> Name</th>
                             <th>Comment</th>
-                            <th>Khala</th>
-                            <th>Paid</th>
-                            <th>Due</th>
+                            <th>Cost</th>
+                          
                             <th>Actions</th>
 
                         </tr>
@@ -206,11 +227,11 @@ firms.map(receipt => <><tr>
 
 
 
-<td><span>500</span></td>
-<td><span>{receipt.pay}</span></td>
+<td><span>{receipt.bazar_cost}</span></td>
 
 
-<td><span>{receipt.due}</span></td>
+
+
 
 
 
@@ -359,4 +380,4 @@ firms.map(receipt => <><tr>
     );
 };
 
-export default KhalaReport;
+export default BazarReport;

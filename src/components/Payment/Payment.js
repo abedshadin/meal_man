@@ -3,7 +3,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
-import { auth } from '../firebase.init';
+import { auth } from '../../firebase.init';
+
 
 
 const Payment = () => {

@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { toast, ToastContainer } from 'react-toastify';
-import { auth } from '../firebase.init';
+import { auth } from '../../firebase.init';
+
 const SPay = () => {
   const { id } = useParams();
   const { register, handleSubmit, reset } = useForm();

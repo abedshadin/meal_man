@@ -1,21 +1,26 @@
 
 import { Route, Routes } from 'react-router-dom';
-import AddMeal from './AddMeal/AddMeal';
+
 import './App.css';
 import AddMember from './components/AddMember/AddMember';
 import Login from './components/Auth/Login';
 import RequireAuth from './components/Auth/RequireAuth';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import KhalaPay from './Khala/KhalaPay';
-import KhalaReport from './Khala/KhalaReport';
-import Members from './Members/Members';
-import Payment from './Payment/Payment';
-import PayReports from './Payment/PayReports';
-import SPay from './Payment/SPay';
-import All from './Reports/All';
-import Individual from './Reports/Individual';
-import Monthly from './Reports/Monthly';
+
+import Members from './components/Members/Members';
+
+
+import All from './components/Reports/All';
+import Individual from './components/Reports/Individual';
+import Monthly from './components/Reports/Monthly';
+import BazarPay from './components/Bazar/BazarPay';
+import BazarReport from './components/Bazar/BazarReport';
+import AddMeal from './components/AddMeal/AddMeal';
+import KhalaReport from './components/Khala/KhalaReport';
+import KhalaPay from './components/Khala/KhalaPay';
+import Payment from './components/Payment/Payment';
+import SPay from './components/Payment/SPay';
 
 
 function App() {
@@ -95,8 +100,18 @@ function App() {
             <KhalaReport></KhalaReport>
           </RequireAuth>
         }></Route>
-      </Routes>
 
+      <Route path="/bpay" element={
+          <RequireAuth>
+            <BazarPay></BazarPay>
+          </RequireAuth>
+        }></Route>
+        <Route path="/breport" element={
+          <RequireAuth>
+            <BazarReport></BazarReport>
+          </RequireAuth>
+        }></Route>
+      </Routes>
 
 
 
