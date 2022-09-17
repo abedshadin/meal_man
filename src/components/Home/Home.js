@@ -28,6 +28,13 @@ const Home = () => {
   let mtotalamount = 0;
   let mtotalpaid = 0;
   let mtotaldue = 0;
+  let totalamount_weekall = 0;
+  const [firms, setFirms] = useState([]);
+  useEffect(() => {
+      fetch('http://localhost:5000/members')
+          .then(res => res.json())
+          .then(data => setFirms(data));
+  }, [])
   return (
     <div className='bg-base-200'>
 
@@ -111,15 +118,15 @@ const Home = () => {
               <div className="stat-figure text-secondary">
 
               </div>
-              <div className=" text-black font-bold">Paid</div>
+              <div className=" text-white font-bold">Paid</div>
               {
-                monthly.forEach(rec => {
-                  mtotalpaid = parseInt(mtotalpaid + rec.pay);
+                        firms.forEach(rec => {
+                            totalamount_weekall = parseInt(totalamount_weekall +  rec.week_1+  rec.week_2+  rec.week_3+  rec.week_4+  rec.week_5);
 
-                })
+                        })
 
-              }
-              <div className="stat-value text-green-400">{mtotalpaid}</div>
+                    }
+              <div className="stat-value text-green-400">{totalamount_weekall}</div>
 
             </div>
 

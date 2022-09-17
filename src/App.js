@@ -7,8 +7,12 @@ import Login from './components/Auth/Login';
 import RequireAuth from './components/Auth/RequireAuth';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
+import KhalaPay from './Khala/KhalaPay';
+import KhalaReport from './Khala/KhalaReport';
 import Members from './Members/Members';
 import Payment from './Payment/Payment';
+import PayReports from './Payment/PayReports';
+import SPay from './Payment/SPay';
 import All from './Reports/All';
 import Individual from './Reports/Individual';
 import Monthly from './Reports/Monthly';
@@ -17,66 +21,85 @@ import Monthly from './Reports/Monthly';
 function App() {
   return (
     <div>
-   <Navbar></Navbar>
-     <Routes>
-    <Route path='/login' element={<Login/>}  />
-    <Route path='/members' element={<Members/>}  />
-     <Route path="/" element={
+      <Navbar></Navbar>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route path='/members' element={<Members />} />
+        <Route path="/" element={
           <RequireAuth>
             <Home />
           </RequireAuth>
 
         } />
-     <Route path="/home" element={
+        <Route path="/home" element={
           <RequireAuth>
             <Home />
           </RequireAuth>
 
         } />
-     <Route path="/add_member" element={
+        <Route path="/add_member" element={
           <RequireAuth>
             <AddMember />
           </RequireAuth>
 
         } />
-          <Route path="/add_meal" element={
+        <Route path="/add_meal" element={
           <RequireAuth>
             <AddMeal />
           </RequireAuth>
 
         } />
-          <Route path="/individual" element={
+        <Route path="/individual" element={
           <RequireAuth>
             <Individual />
           </RequireAuth>
 
         } />
-          <Route path="/all" element={
+        <Route path="/all" element={
           <RequireAuth>
             <All />
           </RequireAuth>
 
         } />
-          <Route path="/monthly" element={
+        <Route path="/monthly" element={
           <RequireAuth>
             <Monthly />
           </RequireAuth>
 
         } />
 
-<Route path="/pay" element={
+        <Route path="/pay" element={
           <RequireAuth>
             <Payment />
           </RequireAuth>
 
         } />
+        {/* <Route path="/payReports" element={
+          <RequireAuth>
+            <PayReports />
+          </RequireAuth>
+
+        } /> */}
+        <Route path="/spay/:id" element={
+          <RequireAuth>
+            <SPay></SPay>
+          </RequireAuth>
+        }></Route>
+        <Route path="/kpay" element={
+          <RequireAuth>
+            <KhalaPay></KhalaPay>
+          </RequireAuth>
+        }></Route>
+        <Route path="/kreport" element={
+          <RequireAuth>
+            <KhalaReport></KhalaReport>
+          </RequireAuth>
+        }></Route>
+      </Routes>
 
 
-     </Routes>
-       
-      
 
-    
+
     </div>
   );
 }

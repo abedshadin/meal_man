@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { auth } from '../firebase.init';
 
 
-const Payment = () => {
+const KhalaReport = () => {
     const [user] = useAuthState(auth);
 
     const current = new Date();
@@ -28,7 +28,7 @@ const Payment = () => {
 
     const [firms, setFirms] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/members')
+        fetch('http://localhost:5000/khalapay')
             .then(res => res.json())
             .then(data => setFirms(data));
     }, [])
@@ -116,8 +116,8 @@ const Payment = () => {
     const handleChange = e => {
         setSearchText(e.value);
     }
-    let totalamount_week1 = 0;
-    let totalamount_week2 = 0;
+    let totalamount_paid = 0;
+    let totaldue = 0;
     let totalamount_week3 = 0;
     let totalamount_week4 = 0;
     let totalamount_week5 = 0;
@@ -143,58 +143,32 @@ const Payment = () => {
                         <tr>
                         {
                         firms.forEach(rec => {
-                            totalamount_week1 = parseInt(totalamount_week1 +  rec.week_1);
+                            totalamount_paid = parseInt(totalamount_paid +  rec.pay);
 
                         })
 
                     }
                         {
                         firms.forEach(rec => {
-                            totalamount_week2 = parseInt(totalamount_week2 +  rec.week_2);
+                            totaldue = parseInt(totaldue +  rec.due);
 
                         })
 
                     }
-                        {
-                        firms.forEach(rec => {
-                            totalamount_week3 = parseInt(totalamount_week3 +  rec.week_3);
+                       
+                       
+                      
 
-                        })
-
-                    }
-                        {
-                        firms.forEach(rec => {
-                            totalamount_week4 = parseInt(totalamount_week4 +  rec.week_4);
-
-                        })
-
-                    }
-                        {
-                        firms.forEach(rec => {
-                            totalamount_week5 = parseInt(totalamount_week5 +  rec.week_5);
-
-                        })
-
-                    }
-                       {
-                        firms.forEach(rec => {
-                            totalamount_weekall = parseInt(totalamount_weekall +  rec.week_1+  rec.week_2+  rec.week_3+  rec.week_4+  rec.week_5);
-
-                        })
-
-                    }
-
-                            <th colSpan="3">Total</th>
+                            <th colSpan="4">Total</th>
                             
-                            <th>{totalamount_week1}</th>
-                            <th>{totalamount_week2}</th>
-                            <th>{totalamount_week3}</th>
-                            <th>{totalamount_week4}</th>
-                            <th>{totalamount_week5}</th>
-                            <th>{totalamount_weekall}</th>
+                            <th>{totalamount_paid}</th>
+                            <th>{totaldue}</th>
+                         
+                        
+                         
                          
                           
-                            <th colSpan={2}>Total</th>
+                            <th colSpan={1}>Total</th>
 
                         </tr>
                     </thead>
@@ -202,16 +176,12 @@ const Payment = () => {
                         <tr>
 
 
-                            <th>Month</th>
+                            <th>Date</th>
                             <th> Name</th>
                             <th>Comment</th>
-                            <th>Week 1</th>
-                            <th>Week 2</th>
-                            <th>Week 3</th>
-                            <th>Week 4</th>
-                            <th>Week 5</th>
-                          
-                            <th>Total</th>
+                            <th>Khala</th>
+                            <th>Paid</th>
+                            <th>Due</th>
                             <th>Actions</th>
 
                         </tr>
@@ -223,30 +193,29 @@ const Payment = () => {
 firms.map(receipt => <><tr>
 
     <td>
-        {receipt.w_month}
+        {receipt.date}
   
     </td>
     <td>{receipt.name}</td>
     {
    
-        receipt.comment ? <td><div className="tooltip tooltip-secondary   font-bold " data-tip={receipt.comment}>
-            <button className="btn">📋</button>
+        receipt.comment ? <td><div className=" tooltip tooltip-secondary   font-bold " data-tip={receipt.comment}>
+            <button className="btn ">📋</button>
         </div></td> : <td></td>
     }
 
 
 
-<td><span>{receipt.week_1}</span></td>
-<td><span>{receipt.week_2}</span></td>
-<td><span>{receipt.week_3}</span></td>
-<td><span>{receipt.week_4}</span></td>
-<td><span>{receipt.week_5}</span></td>
-<td><span>{receipt.week_1+receipt.week_2+receipt.week_3+receipt.week_4+receipt.week_5}</span></td>
+<td><span>500</span></td>
+<td><span>{receipt.pay}</span></td>
+
+
+<td><span>{receipt.due}</span></td>
 
 
 
 <td>
-<button className='btn mr-2' onClick={() => navigateToItemDetail(receipt._id)} >Update</button>
+<button disabled className='btn mr-2 ' onClick={() => navigateToItemDetail(receipt._id)} >Update</button>
                                 </td> 
 
 
@@ -390,4 +359,4 @@ firms.map(receipt => <><tr>
     );
 };
 
-export default Payment;
+export default KhalaReport;

@@ -13,7 +13,12 @@ const AddMember = () => {
       name: data.name,
       dept: data.dept,
       email: data.email,
-      phone: data.phone
+      phone: data.phone,
+      week_1: 0,
+      week_2: 0,
+      week_3: 0,
+      week_4: 0,
+      week_5: 0,
     };
     console.log(addMember)
     fetch(`http://localhost:5000/addMember`, {

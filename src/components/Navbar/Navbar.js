@@ -44,6 +44,9 @@ const Navbar = () => {
       <li className='mr-1'>    <NavLink to="/members" className="btn">Members</NavLink></li>
       <li className='mr-1'>    <NavLink to="/individual" className="btn">Individual</NavLink></li>
       <li className='mr-1'>    <NavLink to="/all" className="btn">All</NavLink></li>
+      <li className='mr-1'>    <NavLink to="/pay" className="btn">Pay</NavLink></li>
+      <li className='mr-1'>    <NavLink to="/kpay" className="btn">Khala Pay</NavLink></li>
+      <li className='mr-1'>    <NavLink to="/kreport" className="btn">Khala Repo</NavLink></li>
 
    
     

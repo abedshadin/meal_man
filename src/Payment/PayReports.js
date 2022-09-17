@@ -1,44 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select'
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-const Individual = () => {
-
-
+const PayReports = () => {
     const [searchText, setSearchText] = useState('');
-    const [indi, setIndi] = useState([]);
+    const [monthly, setMonthly] = useState([]);
     const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-    const time = current.toLocaleTimeString();
-    // const handleSelect = event => {
+    const year = current.getFullYear();
+    // const month = current.toLocaleString("en-US", { month: "long" });
+    const month = current.getMonth() + 1;
+    const searchMonth = `${month}_${year}`;
+    console.log(searchMonth)
+    const handleSelect = event => {
+        const text = event.target.value;
+        setSearchText(text);
 
-    //     const text = event.target.value;
-    //     setSearchText(text);
 
-    // }
+    }
     const handlesearch = e => {
 
-        fetch(`http://localhost:5000/reports/member?name=${searchText}`)
+        fetch(`http://localhost:5000/pays?month=${searchText}`)
             .then(res => res.json())
-            .then(data => setIndi(data))
-
-   
+            .then(data => setMonthly(data))
 
     }
 
 
-console.log(indi.length);
-
-
-
-    const [firms, setFirms] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/members')
+        fetch(`http://localhost:5000/pays?month=${searchMonth}`)
             .then(res => res.json())
-            .then(data => setFirms(data));
-
+            .then(data => setMonthly(data))
     }, [])
-
 
 
     let totaldue = 0;
@@ -48,67 +39,53 @@ console.log(indi.length);
         window.print();
     }
 
-    const options = [];
-    firms.forEach((e) => {
-        options.push({ label: `${e.name}`, value: e.name });
-    })
-
-    console.log(options)
-
     const handleDelete = (id) => {
         const proceed = window.confirm("Are you sure?");
 
         if (proceed) {
-            const url = `http://localhost:5000/meals/${id}`;
+            const url = `https://new-aghgfhfgh.herokuapp.com/receipt/${id}`;
             fetch(url, {
                 method: "DELETE",
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    const remaining = indi.filter((iteml) => iteml._id !== id);
-                    setIndi(remaining);
+                    const remaining = monthly.filter((iteml) => iteml._id !== id);
+                    setMonthly(remaining);
                     toast("Delete Successful");
                 });
         }
     };
+    const navigate = useNavigate();
 
-
-    // handle onChange event of the dropdown
-    const handleChange = e => {
-        setSearchText(e.value);
+    const navigateToItemDetail = id => {
+        navigate(`/sreceipt/${id}`);
     }
-
-
- 
     return (
         <div>
 
             <div className='text-center'>
-                {/* <select onChange={handleSelect} className="input input-bordered w-full max-w-xs mb-2 mt-4">
-                    <option value="">Select Firm</option>
-                    {firms.map((firm) => (
-                        <option className='text-2xl' value={firm.firmName}>{firm.firmName}</option>
-
-                    ))}
-                </select> */}
-                <div className='flex justify-center'>
-                    <div className='input  mt-4 w-96'>
-                        <Select className='text-black z-20 '
-                            placeholder="Select Member"
-                            value={options.value} // set selected value
-                            options={options} // set list of the data
-                            onChange={handleChange} // assign onChange function
-                        />
-                    </div>
-                </div>
+                <select onChange={handleSelect} className="input input-bordered w-full max-w-xs mb-2 mt-4">
+                    <option value={"12_" + year}>December</option>
+                    <option value={"11_" + year}>November</option>
+                    <option value={"10_" + year}>October</option>
+                    <option value={"9_" + year}>September</option>
+                    <option value={"8_" + year}>August</option>
+                    <option value={"7_" + year}>July</option>
+                    <option value={"6_" + year}>June</option>
+                    <option value={"5_" + year}>May</option>
+                    <option value={"4_" + year}>April</option>
+                    <option value={"3_" + year}>March</option>
+                    <option value={"2_" + year}>February</option>
+                    <option value={"1_" + year}>January</option>
+                </select>
                 <br></br>
                 <button className='btn btn-primary mb-4' onClick={handlesearch}>Search</button>
             </div>
 
             <div className="overflow-x-auto w-full">
-                <div className='text-center'>
+            {/* <div className='text-center'>
                     {
-                        indi.forEach(rec => {
+                        monthly.forEach(rec => {
                             totalamount = parseInt(totalamount +  rec.m_d_n.day + rec.m_d_n.night);
 
                         })
@@ -116,7 +93,7 @@ console.log(indi.length);
                     }
                     <span className='text-blue-500 font-bold'>Total Meal: {totalamount}</span> <br></br>
                     {
-                        indi.forEach(rec => {
+                        monthly.forEach(rec => {
                             totalpay = parseInt(totalpay + rec.m_d_n.day);
 
                         })
@@ -125,21 +102,36 @@ console.log(indi.length);
                     <span className='text-green-800 font-bold' >Total Day: {totalpay}</span> <br></br>
 
                     {
-                        indi.forEach(rec => {
+                        monthly.forEach(rec => {
                             totaldue = parseInt(totaldue + rec.m_d_n.night);
 
                         })
 
-                    }
-                    <span className='text-red-500 font-bold'>Total Night: {totaldue}</span><br></br>
+                    } */}
+                    {/* <span className='text-red-500 font-bold'>Total Night: {totaldue}</span><br></br>
 
 
 
 
 
-                </div>
+                </div> */}
                 <table className="table w-full ">
+                <thead>
+                        <tr>
 
+
+                            <th colSpan="3">Total</th>
+                            
+                            <th>Week 1</th>
+                            <th>Week 2</th>
+                            <th>Week 3</th>
+                            <th>Week 4</th>
+                            <th>Week 5</th>
+                          
+                            <th>Total</th>
+
+                        </tr>
+                    </thead>
                     <thead>
                         <tr>
 
@@ -147,16 +139,20 @@ console.log(indi.length);
                             <th>Date</th>
                             <th> Name</th>
                             <th>Comment</th>
-                            <th>Day</th>
-                            <th>Night</th>
-                            <th>Actions</th>
+                            <th>Week 1</th>
+                            <th>Week 2</th>
+                            <th>Week 3</th>
+                            <th>Week 4</th>
+                            <th>Week 5</th>
+                          
+                            <th>Total</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         {
 
-                            indi.map(receipt => <><tr>
+                            monthly.map(receipt => <><tr>
 
                                 <td>
                                     {receipt.date}, {receipt.time}<br />
@@ -172,20 +168,16 @@ console.log(indi.length);
                                 }
 
 
-                                <td>{receipt.m_d_n.day}</td>
-                                <td>{receipt.m_d_n.night}</td>
-                         
+                           
+                         <td>{receipt.week.Week_1.amount}</td>
+                         <td>{receipt.week.Week_2.amount}</td>
+                       
                     
 
 
 
 
 
-                               <td>
-                                    <button className='btn mr-2' onClick={() => handleDelete(receipt._id)}>❌</button>
-
-
-                                </td> 
                             </tr></>
                             ).reverse()
                         }
@@ -197,24 +189,28 @@ console.log(indi.length);
                 </table>
 
 
+
             </div>
 
-            {/* <div className='text-center '>
+
+
+
+
+
+
+
+
+
+
+            <div className='text-center '>
                 <span className="btn btn-primary"
                     onClick={print}>
                     PRINT
                 </span>
-            </div> */}
+            </div>
             <ToastContainer></ToastContainer>
-            {/* <div className='text-center '>
-                <span className="btn btn-primary"
-                    onClick={print}>
-                    PRINT
-                </span>
-            </div> */}
-           
         </div>
     );
 };
 
-export default Individual;
+export default PayReports;
