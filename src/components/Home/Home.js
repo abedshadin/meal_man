@@ -40,68 +40,17 @@ const Home = () => {
 
       <div className='text-center pt-2'>
       
-        <h1 className='text-3xl font-bold text-green-500 mt-10 mb-6'>Daily Summary</h1>
-        <div className="stats shadow ">
-
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-
-            </div>
-            <div className=" text-black font-bold">Amount</div>
-
-            {
-              daily.forEach(rec => {
-                dtotalamount = parseInt(dtotalamount + rec.amount);
-
-              })
-
-            }
-            <div className="stat-value text-yellow-500 ">{dtotalamount}</div>
-
-          </div>
-
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-
-            </div>
-            <div className=" text-black font-bold">Paid</div>
-            {
-              daily.forEach(rec => {
-                dtotalpaid = parseInt(dtotalpaid + rec.pay);
-
-              })
-
-            }
-            <div className="stat-value text-green-400">{dtotalpaid}</div>
-
-          </div>
-
-          <div className="stat">
-            <div className="stat-figure text-secondary">
-
-            </div>
-            <div className=" text-black font-bold">Due</div>
-            {
-              daily.forEach(rec => {
-                dtotaldue = parseInt(dtotaldue + rec.due);
-
-              })
-
-            }
-            <div className="stat-value text-red-500">{dtotaldue}</div>
-
-          </div>
-
-        </div>
+   
+       
         <div>
-          <h1 className='text-3xl font-bold text-green-500 mt-10 mb-6'>Monthly Summary</h1>
+          <h1 className='text-3xl font-bold text-green-500 mt-10 mb-6'>Total Summary</h1>
           <div className="stats shadow">
 
             <div className="stat">
               <div className="stat-figure text-secondary">
 
               </div>
-              <div className=" text-white font-bold">Total Meal</div>
+              <div className=" text-white font-bold"> Meal</div>
 
               {
                 monthly.forEach(rec => {
@@ -118,7 +67,7 @@ const Home = () => {
               <div className="stat-figure text-secondary">
 
               </div>
-              <div className=" text-white font-bold">Paid</div>
+              <div className=" text-white font-bold">Bazar Cost</div>
               {
                         firms.forEach(rec => {
                             totalamount_weekall = parseInt(totalamount_weekall +  rec.week_1+  rec.week_2+  rec.week_3+  rec.week_4+  rec.week_5);
